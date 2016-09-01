@@ -22,6 +22,11 @@
 		<ehcache.version>2.10.0</ehcache.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.ztesoft.bsn</groupId>
+  			<artifactId>service-interface</artifactId>
+  			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
