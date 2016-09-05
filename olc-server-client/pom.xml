@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ztesoft.olc</groupId>
 	<artifactId>olc-server-client</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>olc-server-client Maven Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -235,4 +235,84 @@
 			<url>http://10.45.44.200:8081/nexus/content/groups/public</url>
 		</repository>
 	</repositories>
+	
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<resources>
+			<resource>
+				<targetPath>${project.build.directory}/classes</targetPath>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<targetPath>${project.build.directory}/classes/META-INF/spring</targetPath>
+				<directory>src/main/resources/config/</directory>
+				<includes>
+					<include>spring-content.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<!-- 设置源文件编码方式 -->
+			<plugin>
+				<groupId> org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<source>${project.build.targetJDK}</source>
+					<target>${project.build.targetJDK}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<showDeprecation>true</showDeprecation>
+					<showWarnings>true</showWarnings>
+					<source>${project.build.targetJDK}</source>
+					<target>${project.build.targetJDK}</target>
+					<testSource>${project.build.targetJDK}</testSource>
+					<testTarget>${project.build.targetJDK}</testTarget>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-jar-plugin</artifactId>  
+                <configuration>  
+                    <archive>  
+                        <manifest>  
+                            <addClasspath>true</addClasspath>  
+                            <classpathPrefix>lib/</classpathPrefix>  
+                            <mainClass>com.alibaba.dubbo.container.Main</mainClass>  
+                        </manifest>  
+                    </archive>  
+                </configuration>  
+			</plugin>
+			 <!-- 拷贝依赖的jar包到lib目录 -->  
+            <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-dependency-plugin</artifactId>  
+                <executions>  
+                    <execution>  
+                    	<id>copy</id>  
+                        <phase>package</phase>  
+                        <goals>  
+                            <goal>copy-dependencies</goal>  
+                        </goals>  
+                        <configuration>  
+                            <outputDirectory>  
+                                ${project.build.directory}/lib  
+                            </outputDirectory>  
+                        </configuration>  
+                    </execution>  
+                </executions>  
+            </plugin>
+		</plugins>
+	</build>
 </project>

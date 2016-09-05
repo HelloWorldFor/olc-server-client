@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.ztesoft.bsn.dubbo.demo.service.DemoService;
 import com.ztesoft.bsn.dubbo.entity.DubboResponse;
 import com.ztesoft.bsn.dubbo.recharge.entity.RechargeRequestDto;
 import com.ztesoft.bsn.dubbo.recharge.service.RechargeService;
@@ -36,6 +37,8 @@ public class CosumerMain {
         CosumerMain consumerMain = applicationContext.getBean(CosumerMain.class);
         consumerMain.test();
 
+        DemoService demoService = applicationContext.getBean(DemoService.class);
+        System.out.println(demoService.sayHello("卧槽，监控啊"));
 	}
 
 }
